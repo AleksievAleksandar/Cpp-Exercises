@@ -1,22 +1,27 @@
-#pragma once
+#ifndef MAKE_COMPANY_H
+#define MAKE_COMPANY_H
 
 #include "Company.h"
+
 #include <vector>
+#include <memory>
 #include <string>
 
-Company* makeCompany(std::vector<std::string>& properties)
+std::shared_ptr<Company> makeCompany(const std::vector<std::string>& properties)
 {
-	size_t cnt = 0;
-	int id = std::stoi(properties[cnt++]);
-	std::string name = properties[cnt++];
+	int id = std::stoi(properties[0]);
+	std::string name = properties[1];
+	std::vector<std::pair<char, char> > employees;
 
-	std::vector<std::pair<char, char> > employees{};
-
-	while (cnt < properties.size())
+	for (size_t i = 2; i < properties.size(); i++)
 	{
-		employees.push_back({ properties[cnt][0], properties[cnt][1] });
-		cnt++;
+		char first = properties[i][0];
+		char last = properties[i][1];
+		
+		employees.emplace_back(first, last);
 	}
 
-	return new Company(id, name, employees);
+	return std::make_shared<Company>(id, name, employees);
 }
+
+#endif // !MAKE_COMPANY_H
