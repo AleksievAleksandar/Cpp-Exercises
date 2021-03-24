@@ -6,7 +6,7 @@ bool tryParse(std::string data, int& result)
 {
 	std::istringstream iss(data);
 	int tempNumber;
-	int isNumber = false;
+	bool isNumber = false;
 	while (iss >> result)
 	{
 		isNumber = true;
