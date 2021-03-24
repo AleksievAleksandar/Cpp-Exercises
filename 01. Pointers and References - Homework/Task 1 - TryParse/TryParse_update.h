@@ -7,14 +7,8 @@
 bool tryParse(const std::string& aString, int& a)
 {
 	std::istringstream iss(aString);
-	if (iss >> a)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+
+	return (iss >> a) ? true : false;
 }
 
 #endif // !TRY_PARSE_H
