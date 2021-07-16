@@ -23,7 +23,7 @@ std::vector<std::pair<int, int> > extractInput()
 	return pumpCircle;
 }
 
-void runTour(std::vector<std::pair<int, int> >& pumpCircle)
+int runTour(std::vector<std::pair<int, int> >& pumpCircle)
 {
 	std::set<int> minInd;
 
@@ -31,9 +31,10 @@ void runTour(std::vector<std::pair<int, int> >& pumpCircle)
 	{
 		int fuel = pumpCircle[i].first - pumpCircle[i].second;
 
+		size_t tempIndx = i + 1;
+
 		if (0 < fuel)
 		{
-			size_t tempIndx = i + 1;
 
 			if (tempIndx >= pumpCircle.size() - 1)
 			{
@@ -54,14 +55,14 @@ void runTour(std::vector<std::pair<int, int> >& pumpCircle)
 					tempIndx = 0;
 				}
 			}
-			if (tempIndx == i && 0 < fuel)
-			{
-				minInd.insert(i);
-			}
+
+		}
+		if (tempIndx == i && 0 < fuel)
+		{
+			return i;
 		}
 	}
-
-	std::cout << *(minInd.upper_bound(-1));
+	return -1;
 }
 
 int main()
@@ -69,7 +70,7 @@ int main()
 	std::vector<std::pair<int, int> > pumpCircle;
 	pumpCircle = extractInput();
 
-	runTour(pumpCircle);
+	std::cout << runTour(pumpCircle);
 
 	return 0;
 }
